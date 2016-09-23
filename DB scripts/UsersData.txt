@@ -1,0 +1,12 @@
+Users data, run this query after creating the User table
+
+
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'rjalomos', N'123       ', 1)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'scott', N'123       ', 1)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'zercher', N'123       ', 1)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'roeber', N'123       ', 1)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'employee', N'123       ', 0)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'manager', N'123       ', 1)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'user2', N'123       ', 0)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'user3', N'123       ', 0)
+INSERT INTO [dbo].[Users] ([UserName], [Password], [AccessLevel]) VALUES (N'user4', N'123       ', 0)

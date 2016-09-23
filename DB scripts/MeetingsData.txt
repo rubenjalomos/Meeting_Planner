@@ -1,0 +1,7 @@
+run this query to add dummy data to meetings table
+
+
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration]) VALUES (N'76ed587f-d19f-41e2-81d9-1e237d4e29b6', N'office3', N'2016-10-05 14:00:00', N'group5', 120)
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration]) VALUES (N'f9ce7af2-3bad-4c59-97a6-7d69299064d4', N'building4', N'2016-09-25 00:00:00', N'title1', 45)
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration]) VALUES (N'dc8a26f4-cdcf-4453-a6ce-cc7fce243d00', N'office2', N'2016-09-30 11:45:00', N'grouptitle2', 55)
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration]) VALUES (N'0866dffa-750a-47c5-a49a-f97bd29c432b', N'office1', N'2016-09-29 10:00:00', N'grouptitle', 55)
