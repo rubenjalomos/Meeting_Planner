@@ -4,20 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MeetingPlanner.DBModel;
-using MeetingPlanner.ViewModel;
 
+/// <summary>
+/// May not use, can use the DB model and avoid converting from ViewModel to DBModel. but may need if unable to implictly convert from list obtained from view
+/// to IColletion list needed for Database Model 
+/// User model that is used in the View
 
+/// </summary>
 
-//User model that is used in the View
-namespace MeetingPlanner.ViewModel
+namespace MeetingPlanner.Entity
 {
     public enum AccessLevel { Manager = 1, Employee = 0 }
-    public class UserViewModel
+    abstract class UserVM
     {
-        public string UserName { get; set; }
-        public AccessLevel AccessLevel { get; set; } // manager or employee
-        public string Password { get; set; }
-        public List<MeetingViewModel> Meetings { get; set; }
+        public virtual string UserName { get; set; }
+        public virtual string Password { get; set; }
+        //protected string UserName;
+        //protected string Password;
+        
+        //public UserVM(string UserName, string Password)
+        //{
+        //    this.UserName = UserName;
+        //    this.Password = Password;
+        //}
+       
     }
 
 

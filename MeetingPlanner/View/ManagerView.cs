@@ -8,19 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MeetingPlanner.DBModel;
-using MeetingPlanner.ViewModel;
+using MeetingPlanner.Entity;
 
 namespace MeetingPlanner.View
 {
     public partial class ManagerView : Form
     {
-        private User userLoggedIn; // user object that is held onto when logged in
+        private Manager userLoggedIn; // user object that is held onto when logged in
         public ManagerView()
         {
             InitializeComponent();
         }
 
-        public ManagerView(User userLoggedIn)
+        public ManagerView(Manager userLoggedIn)
         {
             InitializeComponent();
             this.userLoggedIn = userLoggedIn;

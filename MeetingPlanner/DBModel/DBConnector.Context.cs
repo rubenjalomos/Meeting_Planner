@@ -13,10 +13,10 @@ namespace MeetingPlanner.DBModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MeetingPlannerDataBaseEntities : DbContext
+    public partial class DBConnector : DbContext
     {
-        public MeetingPlannerDataBaseEntities()
-            : base("name=MeetingPlannerDataBaseEntities")
+        public DBConnector()
+            : base("name=DBConnector")
         {
         }
     
@@ -27,5 +27,7 @@ namespace MeetingPlanner.DBModel
     
         public virtual DbSet<Meeting> Meetings { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Manager> Managers { get; set; }
     }
 }

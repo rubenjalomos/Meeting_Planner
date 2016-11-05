@@ -5,6 +5,26 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="MeetingPlannerDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="AccessLevel" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="AccessLevel" />
+          </Key>
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccessLevel" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Meetings">
           <Key>
             <PropertyRef Name="Id" />
@@ -29,8 +49,31 @@
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="AccessLevel" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Employee_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Manager" Type="Self.Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Manager">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ScheduledMeeting_Meetings">
           <End Role="Meetings" Type="Self.Meetings" Multiplicity="1" />
           <End Role="ScheduledMeeting" Type="Self.ScheduledMeeting" Multiplicity="*" />
@@ -59,6 +102,26 @@
           <EntitySet Name="Meetings" EntityType="Self.Meetings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ScheduledMeeting" EntityType="Self.ScheduledMeeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Employee].[UserName] AS [UserName], 
+    [Employee].[AccessLevel] AS [AccessLevel]
+    FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Manager" EntityType="Self.Manager" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Manager].[UserName] AS [UserName], 
+    [Manager].[AccessLevel] AS [AccessLevel]
+    FROM [dbo].[Manager] AS [Manager]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Employee_Users" Association="Self.FK_Employee_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_Users" Association="Self.FK_Manager_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Manager" EntitySet="Manager" />
+          </AssociationSet>
           <AssociationSet Name="FK_ScheduledMeeting_Meetings" Association="Self.FK_ScheduledMeeting_Meetings">
             <End Role="Meetings" EntitySet="Meetings" />
             <End Role="ScheduledMeeting" EntitySet="ScheduledMeeting" />
@@ -90,16 +153,69 @@
           </Key>
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Users" FromRole="Users" ToRole="Employee" />
+          <NavigationProperty Name="Managers" Relationship="Self.FK_Manager_Users" FromRole="Users" ToRole="Manager" />
           <NavigationProperty Name="Meetings" Relationship="Self.ScheduledMeeting" FromRole="Users" ToRole="Meetings" />
         </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="AccessLevel" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_Users" FromRole="Employee" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserName" />
+            <PropertyRef Name="AccessLevel" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Manager_Users" FromRole="Manager" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_Employee_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Manager_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Manager" Type="Self.Manager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserName" />
+            </Principal>
+            <Dependent Role="Manager">
+              <PropertyRef Name="UserName" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="ScheduledMeeting">
           <End Role="Meetings" Type="Self.Meeting" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="MeetingPlannerDataBaseEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DBConnector" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Meetings" EntityType="Self.Meeting" />
           <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Employees" EntityType="Self.Employee" />
+          <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <AssociationSet Name="FK_Employee_Users" Association="Self.FK_Employee_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Employee" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Manager_Users" Association="Self.FK_Manager_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Manager" EntitySet="Managers" />
+          </AssociationSet>
           <AssociationSet Name="ScheduledMeeting" Association="Self.ScheduledMeeting">
             <End Role="Meetings" EntitySet="Meetings" />
             <End Role="Users" EntitySet="Users" />
@@ -110,7 +226,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MeetingPlannerDataBaseModelStoreContainer" CdmEntityContainer="MeetingPlannerDataBaseEntities">
+        <EntityContainerMapping StorageEntityContainer="MeetingPlannerDataBaseModelStoreContainer" CdmEntityContainer="DBConnector">
           <EntitySetMapping Name="Meetings">
             <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Meeting">
               <MappingFragment StoreEntitySet="Meetings">
@@ -127,6 +243,21 @@
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Managers">
+            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Manager">
+              <MappingFragment StoreEntitySet="Manager">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="AccessLevel" ColumnName="AccessLevel" />
               </MappingFragment>
             </EntityTypeMapping>

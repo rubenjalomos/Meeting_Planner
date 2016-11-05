@@ -13,14 +13,14 @@ namespace MeetingPlanner.View
 {
     public partial class EmployeeView : Form
     {
-        private User userLoggedIn;// current user 
+        private Employee userLoggedIn;// current user 
 
         public EmployeeView()
         {
             InitializeComponent();
         }
 
-        public EmployeeView(User userLoggedIn)
+        public EmployeeView(Employee userLoggedIn)
         {
             InitializeComponent();
             this.userLoggedIn = userLoggedIn;
