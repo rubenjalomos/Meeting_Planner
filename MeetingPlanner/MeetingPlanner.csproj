@@ -106,17 +106,17 @@
     <Compile Include="Entity\MeetingVM.cs" />
     <Compile Include="Control\CreateController.cs" />
     <Compile Include="Entity\UserVM.cs" />
-    <Compile Include="View\CreateMeeting.cs">
+    <Compile Include="View\CreateMeetingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\CreateMeeting.Designer.cs">
-      <DependentUpon>CreateMeeting.cs</DependentUpon>
+    <Compile Include="View\CreateMeetingView.Designer.cs">
+      <DependentUpon>CreateMeetingView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\DeleteMeeting.cs">
+    <Compile Include="View\DeleteMeetingView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\DeleteMeeting.Designer.cs">
-      <DependentUpon>DeleteMeeting.cs</DependentUpon>
+    <Compile Include="View\DeleteMeetingView.Designer.cs">
+      <DependentUpon>DeleteMeetingView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\EmployeeView.cs">
       <SubType>Form</SubType>
@@ -147,6 +147,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\CreateMeetingView.resx">
+      <DependentUpon>CreateMeetingView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\DeleteMeetingView.resx">
+      <DependentUpon>DeleteMeetingView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\EmployeeView.resx">
       <DependentUpon>EmployeeView.cs</DependentUpon>
     </EmbeddedResource>

@@ -1,6 +1,6 @@
 ﻿namespace MeetingPlanner.View
 {
-    partial class EmployeeView
+    partial class DeleteMeetingView
     {
         /// <summary>
         /// Required designer variable.
@@ -28,33 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.AddMeetingButtonEmployee = new System.Windows.Forms.Button();
+            this.MeetingsListBox = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
-            // AddMeetingButtonEmployee
+            // MeetingsListBox
             // 
-            this.AddMeetingButtonEmployee.Location = new System.Drawing.Point(60, 71);
-            this.AddMeetingButtonEmployee.Name = "AddMeetingButtonEmployee";
-            this.AddMeetingButtonEmployee.Size = new System.Drawing.Size(75, 23);
-            this.AddMeetingButtonEmployee.TabIndex = 0;
-            this.AddMeetingButtonEmployee.Text = "Add Meeting";
-            this.AddMeetingButtonEmployee.UseVisualStyleBackColor = true;
-            this.AddMeetingButtonEmployee.Click += new System.EventHandler(this.AddMeetingButtonEmployee_Click);
+            this.MeetingsListBox.FormattingEnabled = true;
+            this.MeetingsListBox.HorizontalScrollbar = true;
+            this.MeetingsListBox.Location = new System.Drawing.Point(55, 30);
+            this.MeetingsListBox.Name = "MeetingsListBox";
+            this.MeetingsListBox.ScrollAlwaysVisible = true;
+            this.MeetingsListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.MeetingsListBox.Size = new System.Drawing.Size(201, 186);
+            this.MeetingsListBox.Sorted = true;
+            this.MeetingsListBox.TabIndex = 0;
             // 
-            // EmployeeView
+            // DeleteMeetingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 395);
-            this.Controls.Add(this.AddMeetingButtonEmployee);
-            this.Name = "EmployeeView";
-            this.Text = "EmployeeView";
+            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.MeetingsListBox);
+            this.Name = "DeleteMeetingView";
+            this.Text = "DeleteMeeting";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Button AddMeetingButtonEmployee;
+        private System.Windows.Forms.ListBox MeetingsListBox;
     }
 }

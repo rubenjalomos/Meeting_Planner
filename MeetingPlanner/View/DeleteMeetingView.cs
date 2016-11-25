@@ -7,14 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MeetingPlanner.DBModel;
 
 namespace MeetingPlanner.View
 {
-    public partial class CreateMeeting : Form
+    public partial class DeleteMeetingView : Form
     {
-        public CreateMeeting()
+        private Manager managerLoggedIn;
+        public DeleteMeetingView(Manager managerLoggedIn)
         {
             InitializeComponent();
+            this.managerLoggedIn = managerLoggedIn;
+            
         }
     }
 }

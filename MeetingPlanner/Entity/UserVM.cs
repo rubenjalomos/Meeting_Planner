@@ -19,6 +19,7 @@ namespace MeetingPlanner.Entity
     {
         public virtual string UserName { get; set; }
         public virtual string Password { get; set; }
+        
         //protected string UserName;
         //protected string Password;
         

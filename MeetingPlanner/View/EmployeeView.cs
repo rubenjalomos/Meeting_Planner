@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MeetingPlanner.DBModel;
+using MeetingPlanner.Control;
+
 
 namespace MeetingPlanner.View
 {
@@ -15,15 +17,16 @@ namespace MeetingPlanner.View
     {
         private Employee userLoggedIn;// current user 
 
-        public EmployeeView()
-        {
-            InitializeComponent();
-        }
-
         public EmployeeView(Employee userLoggedIn)
         {
             InitializeComponent();
             this.userLoggedIn = userLoggedIn;
+        }
+
+        private void AddMeetingButtonEmployee_Click(object sender, EventArgs e)
+        {
+            CreateController createE = new CreateController();
+            createE.OpenCreateMeetingView(userLoggedIn);
         }
     }
 }

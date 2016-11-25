@@ -44,6 +44,7 @@ namespace MeetingPlanner.View
                     Hide(); //hides the current form before opening the new view
                     EmployeeView empV = new EmployeeView(EmployeeLoggedIn); // passes user object into next view to be used when needed.
                     empV.Show();
+                    //Close();  during debug, window closes too fast and debugging stops
                     //poplate view with users meetings already stored from object UserLoggedIn
                 }
 
@@ -53,6 +54,7 @@ namespace MeetingPlanner.View
                     Hide(); //hides the current form before opening the new view
                     ManagerView mngV = new ManagerView(ManagerLoggedIn);// passes user object into next view to be used when needed.
                     mngV.Show();
+                    //Close(); during debug, window closes too fast and debugging stops
                     //poplate view with users meetings already stored from object UserLoggedIn
                         
                 }
