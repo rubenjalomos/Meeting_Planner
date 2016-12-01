@@ -1,0 +1,39 @@
+CREATE TABLE [dbo].[Users] (
+    [UserName] NVARCHAR (50) NOT NULL,
+    [Password] NCHAR (10)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([UserName] ASC)
+);
+
+CREATE TABLE [dbo].[Employee] (
+    [UserName]    NVARCHAR (50) NOT NULL,
+    [AccessLevel] INT           NOT NULL,
+    CONSTRAINT [FK_Employee_Users] FOREIGN KEY ([UserName]) REFERENCES [dbo].[Users] ([UserName])
+);
+
+
+CREATE TABLE [dbo].[Manager] (
+    [UserName]    NVARCHAR (50) NOT NULL,
+    [AccessLevel] INT           NOT NULL,
+    CONSTRAINT [FK_Manager_Users] FOREIGN KEY ([UserName]) REFERENCES [dbo].[Users] ([UserName])
+);
+
+
+
+CREATE TABLE [dbo].[Meetings] (
+    [Id]              UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [MeetingLocation] NVARCHAR (50)    NOT NULL,
+    [MeetingDate]     DATETIME         NOT NULL,
+    [GroupTitle]      NVARCHAR (50)    NOT NULL,
+    [MeetingDuration] INT              NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+
+CREATE TABLE [dbo].[ScheduledMeeting] (
+    [User]      NVARCHAR (50)    NOT NULL,
+    [MeetingID] UNIQUEIDENTIFIER NOT NULL,
+    CONSTRAINT [PK_ScheduledMeeting] PRIMARY KEY CLUSTERED ([MeetingID] ASC, [User] ASC),
+    CONSTRAINT [FK_ScheduledMeeting_Users] FOREIGN KEY ([User]) REFERENCES [dbo].[Users] ([UserName]),
+    CONSTRAINT [FK_ScheduledMeeting_Meetings] FOREIGN KEY ([MeetingID]) REFERENCES [dbo].[Meetings] ([Id])
+);
