@@ -7,35 +7,28 @@ using MeetingPlanner.DBModel;
 using MeetingPlanner.Control;
 using MeetingPlanner.Entity;
 using MeetingPlanner.View;
+using System.Windows.Forms;
 
 namespace MeetingPlanner.Control
 {
     public class DeleteController
     {
+        DBConnector db = new DBConnector();
         public void OpenDeleteMeetingView (Manager MUser)
         {
             DeleteMeetingView DeleteView = new DeleteMeetingView(MUser);
-            DeleteView.Show();
-            var meetings = GetCalendar(); //create list of all meetings to select delete.
-            
+            DeleteView.Show();                       
         }
 
-        public List<Meeting> GetCalendar()
+        public List<Meeting> GetAllMeetings()
         {
-            using (var db = new DBConnector())
-            {
-                var meetings = db.Meetings.Select(x => x).ToList();
-                return meetings;
-            }
+            return db.GetAllCalendar();
         }
-        public void DeleteMeeting_(Meeting MeetingToDelete)
+        public void DeleteMeeting(ListBox.SelectedObjectCollection MeetingsToDelete)
         {
-            using (var db = new DBConnector())
+            foreach (Meeting m in MeetingsToDelete)
             {
-                //Guid id = Guid.Parse(MeetingToDelete.ID);
-                var record = db.Meetings.Where(x => x.Id == MeetingToDelete.Id).Single();
-                db.Meetings.Remove(record);
-                db.SaveChanges();
+                db.DeleteMeeting(m);
             }
         }
     }

@@ -5,22 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="MeetingPlannerDataBaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Employee">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="AccessLevel" />
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AccessLevel" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Manager">
           <Key>
             <PropertyRef Name="UserName" />
-            <PropertyRef Name="AccessLevel" />
           </Key>
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="AccessLevel" Type="int" Nullable="false" />
@@ -34,14 +28,7 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
           <Property Name="MeetingDate" Type="datetime" Nullable="false" />
           <Property Name="GroupTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MeetingDuration" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="ScheduledMeeting">
-          <Key>
-            <PropertyRef Name="User" />
-            <PropertyRef Name="MeetingID" />
-          </Key>
-          <Property Name="User" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="MeetingID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserN" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Users">
           <Key>
@@ -52,7 +39,7 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
         </EntityType>
         <Association Name="FK_Employee_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserName" />
@@ -64,7 +51,7 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
         </Association>
         <Association Name="FK_Manager_Users">
           <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="Manager" Type="Self.Manager" Multiplicity="*" />
+          <End Role="Manager" Type="Self.Manager" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserName" />
@@ -74,46 +61,11 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ScheduledMeeting_Meetings">
-          <End Role="Meetings" Type="Self.Meetings" Multiplicity="1" />
-          <End Role="ScheduledMeeting" Type="Self.ScheduledMeeting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Meetings">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ScheduledMeeting">
-              <PropertyRef Name="MeetingID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ScheduledMeeting_Users">
-          <End Role="Users" Type="Self.Users" Multiplicity="1" />
-          <End Role="ScheduledMeeting" Type="Self.ScheduledMeeting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="UserName" />
-            </Principal>
-            <Dependent Role="ScheduledMeeting">
-              <PropertyRef Name="User" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="MeetingPlannerDataBaseModelStoreContainer">
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manager" EntityType="Self.Manager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Meetings" EntityType="Self.Meetings" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ScheduledMeeting" EntityType="Self.ScheduledMeeting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Employee].[UserName] AS [UserName], 
-    [Employee].[AccessLevel] AS [AccessLevel]
-    FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="Manager" EntityType="Self.Manager" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Manager].[UserName] AS [UserName], 
-    [Manager].[AccessLevel] AS [AccessLevel]
-    FROM [dbo].[Manager] AS [Manager]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Employee_Users" Association="Self.FK_Employee_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Employee" EntitySet="Employee" />
@@ -122,20 +74,28 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
             <End Role="Users" EntitySet="Users" />
             <End Role="Manager" EntitySet="Manager" />
           </AssociationSet>
-          <AssociationSet Name="FK_ScheduledMeeting_Meetings" Association="Self.FK_ScheduledMeeting_Meetings">
-            <End Role="Meetings" EntitySet="Meetings" />
-            <End Role="ScheduledMeeting" EntitySet="ScheduledMeeting" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ScheduledMeeting_Users" Association="Self.FK_ScheduledMeeting_Users">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="ScheduledMeeting" EntitySet="ScheduledMeeting" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MeetingPlannerDataBaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Employee_Users" FromRole="Employee" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Manager">
+          <Key>
+            <PropertyRef Name="UserName" />
+          </Key>
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Manager_Users" FromRole="Manager" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Meeting">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,7 +105,7 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
           <Property Name="MeetingDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="GroupTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MeetingDuration" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Users" Relationship="Self.ScheduledMeeting" FromRole="Meetings" ToRole="Users" />
+          <Property Name="UserN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -153,31 +113,12 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
           </Key>
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_Users" FromRole="Users" ToRole="Employee" />
-          <NavigationProperty Name="Managers" Relationship="Self.FK_Manager_Users" FromRole="Users" ToRole="Manager" />
-          <NavigationProperty Name="Meetings" Relationship="Self.ScheduledMeeting" FromRole="Users" ToRole="Meetings" />
-        </EntityType>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="AccessLevel" />
-          </Key>
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Employee_Users" FromRole="Employee" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="Manager">
-          <Key>
-            <PropertyRef Name="UserName" />
-            <PropertyRef Name="AccessLevel" />
-          </Key>
-          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="AccessLevel" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Manager_Users" FromRole="Manager" ToRole="Users" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Users" FromRole="Users" ToRole="Employee" />
+          <NavigationProperty Name="Manager" Relationship="Self.FK_Manager_Users" FromRole="Users" ToRole="Manager" />
         </EntityType>
         <Association Name="FK_Employee_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserName" />
@@ -189,7 +130,7 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
         </Association>
         <Association Name="FK_Manager_Users">
           <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="Manager" Type="Self.Manager" Multiplicity="*" />
+          <End Role="Manager" Type="Self.Manager" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Users">
               <PropertyRef Name="UserName" />
@@ -199,15 +140,11 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ScheduledMeeting">
-          <End Role="Meetings" Type="Self.Meeting" Multiplicity="*" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
-        </Association>
-        <EntityContainer Name="DBConnector" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Meetings" EntityType="Self.Meeting" />
-          <EntitySet Name="Users" EntityType="Self.User" />
+        <EntityContainer Name="MeetingPlannerDataBaseEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
           <EntitySet Name="Managers" EntityType="Self.Manager" />
+          <EntitySet Name="Meetings" EntityType="Self.Meeting" />
+          <EntitySet Name="Users" EntityType="Self.User" />
           <AssociationSet Name="FK_Employee_Users" Association="Self.FK_Employee_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Employee" EntitySet="Employees" />
@@ -216,36 +153,13 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
             <End Role="Users" EntitySet="Users" />
             <End Role="Manager" EntitySet="Managers" />
           </AssociationSet>
-          <AssociationSet Name="ScheduledMeeting" Association="Self.ScheduledMeeting">
-            <End Role="Meetings" EntitySet="Meetings" />
-            <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MeetingPlannerDataBaseModelStoreContainer" CdmEntityContainer="DBConnector">
-          <EntitySetMapping Name="Meetings">
-            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Meeting">
-              <MappingFragment StoreEntitySet="Meetings">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
-                <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
-                <ScalarProperty Name="GroupTitle" ColumnName="GroupTitle" />
-                <ScalarProperty Name="MeetingDuration" ColumnName="MeetingDuration" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.User">
-              <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+        <EntityContainerMapping StorageEntityContainer="MeetingPlannerDataBaseModelStoreContainer" CdmEntityContainer="MeetingPlannerDataBaseEntities">
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -262,14 +176,26 @@ warning 6002: The table/view 'MeetingPlannerDataBase.dbo.Manager' does not have 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="ScheduledMeeting" TypeName="MeetingPlannerDataBaseModel.ScheduledMeeting" StoreEntitySet="ScheduledMeeting">
-            <EndProperty Name="Meetings">
-              <ScalarProperty Name="Id" ColumnName="MeetingID" />
-            </EndProperty>
-            <EndProperty Name="Users">
-              <ScalarProperty Name="UserName" ColumnName="User" />
-            </EndProperty>
-          </AssociationSetMapping>
+          <EntitySetMapping Name="Meetings">
+            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.Meeting">
+              <MappingFragment StoreEntitySet="Meetings">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="MeetingLocation" ColumnName="MeetingLocation" />
+                <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
+                <ScalarProperty Name="GroupTitle" ColumnName="GroupTitle" />
+                <ScalarProperty Name="MeetingDuration" ColumnName="MeetingDuration" />
+                <ScalarProperty Name="UserN" ColumnName="UserN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MeetingPlannerDataBaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

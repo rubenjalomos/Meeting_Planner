@@ -28,45 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.GroupTitleTextBox = new System.Windows.Forms.TextBox();
+            this.meetingDurationtextBox = new System.Windows.Forms.TextBox();
+            this.locaitonTextBox = new System.Windows.Forms.TextBox();
             this.CreateButton = new System.Windows.Forms.Button();
             this.MeetingDateLabel = new System.Windows.Forms.Label();
             this.GroupTitleLabel = new System.Windows.Forms.Label();
             this.MeetingDurationLabel = new System.Windows.Forms.Label();
             this.LocationLabel = new System.Windows.Forms.Label();
             this.CancelCreateButton = new System.Windows.Forms.Button();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.UserLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // GroupTitleTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(245, 54);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(191, 20);
-            this.textBox1.TabIndex = 0;
+            this.GroupTitleTextBox.Location = new System.Drawing.Point(245, 91);
+            this.GroupTitleTextBox.Name = "GroupTitleTextBox";
+            this.GroupTitleTextBox.Size = new System.Drawing.Size(191, 20);
+            this.GroupTitleTextBox.TabIndex = 1;
             // 
-            // textBox2
+            // meetingDurationtextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(245, 91);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(191, 20);
-            this.textBox2.TabIndex = 1;
+            this.meetingDurationtextBox.Location = new System.Drawing.Point(245, 135);
+            this.meetingDurationtextBox.Name = "meetingDurationtextBox";
+            this.meetingDurationtextBox.Size = new System.Drawing.Size(191, 20);
+            this.meetingDurationtextBox.TabIndex = 2;
             // 
-            // textBox3
+            // locaitonTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(245, 135);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(191, 20);
-            this.textBox3.TabIndex = 2;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(245, 182);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(191, 20);
-            this.textBox4.TabIndex = 3;
+            this.locaitonTextBox.Location = new System.Drawing.Point(245, 182);
+            this.locaitonTextBox.Name = "locaitonTextBox";
+            this.locaitonTextBox.Size = new System.Drawing.Size(191, 20);
+            this.locaitonTextBox.TabIndex = 3;
             // 
             // CreateButton
             // 
@@ -124,39 +118,56 @@
             this.CancelCreateButton.UseVisualStyleBackColor = true;
             this.CancelCreateButton.Click += new System.EventHandler(this.CancelCreateButton_Click);
             // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.Location = new System.Drawing.Point(245, 54);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(191, 20);
+            this.dateTimePicker.TabIndex = 10;
+            // 
+            // UserLabel
+            // 
+            this.UserLabel.AutoSize = true;
+            this.UserLabel.Location = new System.Drawing.Point(29, 13);
+            this.UserLabel.Name = "UserLabel";
+            this.UserLabel.Size = new System.Drawing.Size(0, 13);
+            this.UserLabel.TabIndex = 11;
+            // 
             // CreateMeetingView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(529, 261);
+            this.Controls.Add(this.UserLabel);
+            this.Controls.Add(this.dateTimePicker);
             this.Controls.Add(this.CancelCreateButton);
             this.Controls.Add(this.LocationLabel);
             this.Controls.Add(this.MeetingDurationLabel);
             this.Controls.Add(this.GroupTitleLabel);
             this.Controls.Add(this.MeetingDateLabel);
             this.Controls.Add(this.CreateButton);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.locaitonTextBox);
+            this.Controls.Add(this.meetingDurationtextBox);
+            this.Controls.Add(this.GroupTitleTextBox);
             this.Name = "CreateMeetingView";
             this.Text = "CreateMeeting";
+            this.Load += new System.EventHandler(this.CreateMeetingView_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox GroupTitleTextBox;
+        private System.Windows.Forms.TextBox meetingDurationtextBox;
+        private System.Windows.Forms.TextBox locaitonTextBox;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.Label MeetingDateLabel;
         private System.Windows.Forms.Label GroupTitleLabel;
         private System.Windows.Forms.Label MeetingDurationLabel;
         private System.Windows.Forms.Label LocationLabel;
         private System.Windows.Forms.Button CancelCreateButton;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.Label UserLabel;
     }
 }

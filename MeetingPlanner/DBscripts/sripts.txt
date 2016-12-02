@@ -1,0 +1,57 @@
+﻿
+CREATE TABLE [dbo].[Users] (
+    [UserName] NVARCHAR (50) NOT NULL,
+    [Password] NCHAR (10)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([UserName] ASC)
+);
+
+CREATE TABLE [dbo].[Manager] (
+    [UserName]    NVARCHAR (50) NOT NULL,
+    [AccessLevel] INT           NOT NULL,
+    CONSTRAINT [PK_Manager] PRIMARY KEY CLUSTERED ([UserName] ASC),
+    CONSTRAINT [FK_Manager_Users] FOREIGN KEY ([UserName]) REFERENCES [dbo].[Users] ([UserName])
+);
+
+CREATE TABLE [dbo].[Employee] (
+    [UserName]    NVARCHAR (50) NOT NULL,
+    [AccessLevel] INT           NOT NULL,
+    CONSTRAINT [PK_Employee] PRIMARY KEY CLUSTERED ([UserName] ASC),
+    CONSTRAINT [FK_Employee_Users] FOREIGN KEY ([UserName]) REFERENCES [dbo].[Users] ([UserName])
+);
+
+CREATE TABLE [dbo].[Meetings] (
+    [Id]              UNIQUEIDENTIFIER DEFAULT (newid()) NOT NULL,
+    [MeetingLocation] NVARCHAR (50)    NOT NULL,
+    [MeetingDate]     DATETIME         NOT NULL,
+    [GroupTitle]      NVARCHAR (50)    NOT NULL,
+    [MeetingDuration] INT              NOT NULL,
+    [UserN]           NVARCHAR (50)    NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'employee', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'manager', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'rjalomos', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'roeber', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'scott', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'user2', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'user3', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'user4', N'123       ')
+INSERT INTO [dbo].[Users] ([UserName], [Password]) VALUES (N'zercher', N'123       ')
+
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'002c19d6-d444-43f6-9d76-32947018e9c8', N'office1', N'2016-12-01 00:00:00', N'group1', 25, N'employee')
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'90511cb6-58be-484c-b480-69c578cec2bb', N'office3', N'2016-11-30 00:00:00', N'group4', 35, N'employee')
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'cc6bf496-a44f-4813-9a00-75988e1fca65', N'test', N'2016-11-28 02:54:53', N'test', 34, N'employee')
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'44895d0f-5bf4-4a6c-99f9-a280b3ee7ee3', N'room5', N'2016-11-21 02:52:16', N'GTTEST', 60, N'employee')
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'cb9bd2f7-b568-4d91-b82b-cc9556b432ad', N'Room500', N'2016-12-01 02:59:27', N'Safety Meeting', 55, N'user2')
+INSERT INTO [dbo].[Meetings] ([Id], [MeetingLocation], [MeetingDate], [GroupTitle], [MeetingDuration], [UserN]) VALUES (N'bddf6934-79b1-43f6-a23b-e659081ba425', N'room 55', N'2016-12-05 03:32:55', N'training', 55, N'rjalomos')
+
+INSERT INTO [dbo].[Employee] ([UserName], [AccessLevel]) VALUES (N'employee', 0)
+INSERT INTO [dbo].[Employee] ([UserName], [AccessLevel]) VALUES (N'user2', 0)
+
+
+INSERT INTO [dbo].[Manager] ([UserName], [AccessLevel]) VALUES (N'manager', 1)
+INSERT INTO [dbo].[Manager] ([UserName], [AccessLevel]) VALUES (N'rjalomos', 1)
+INSERT INTO [dbo].[Manager] ([UserName], [AccessLevel]) VALUES (N'scott', 1)
+
+

@@ -15,46 +15,32 @@ namespace MeetingPlanner.Control
 {
     public class LoginController
     {
+        DBConnector db = new DBConnector();
         
         public User Login(string UserName, string Password)
         {
-            using (var db = new DBConnector())
-            {
-                return db.Users.Single(x => (x.UserName == UserName && x.Password == Password));                
-            }
+            return db.UserLogin(UserName, Password);
 
         }
 
         public bool CheckIfManager(User verifedUser)
         {
-            using (var db = new DBConnector())
-            {
-               return db.Managers.Any(x => (x.UserName == verifedUser.UserName));
-            }
+            return db.CheckIfManager(verifedUser);
          }
 
         public bool CheckIfEmployee(User verifiedUser)
         {
-            using (var db = new DBConnector())
-            {
-                return db.Employees.Any(x => (x.UserName == verifiedUser.UserName));
-            }
+            return db.CheckIfEmployee(verifiedUser);
         }
 
         public Employee GetEmployee(User verifiedUser)
         {
-            using (var db = new DBConnector())
-            {
-                return db.Employees.Single(x => (x.UserName == verifiedUser.UserName));
-            }
+            return db.GetEmployee(verifiedUser);
         }
 
         public Manager GetManager(User verifiedUser)
         {
-            using (var db = new DBConnector())
-            {
-                return db.Managers.Single(x => (x.UserName == verifiedUser.UserName));
-            }
+            return db.GetManager(verifiedUser);
         }
 
     }

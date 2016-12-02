@@ -14,22 +14,10 @@ namespace MeetingPlanner.DBModel
     
     public partial class User
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public User()
-        {
-            this.Employees = new HashSet<Employee>();
-            this.Managers = new HashSet<Manager>();
-            this.Meetings = new HashSet<Meeting>();
-        }
-    
         public string UserName { get; set; }
         public string Password { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Employee> Employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Manager> Managers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Meeting> Meetings { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Manager Manager { get; set; }
     }
 }

@@ -48,7 +48,6 @@ namespace MeetingPlanner.Entity
             M.MeetingDate = MVM.MeetingDate;
             M.MeetingDuration = MVM.MeetingDuration;
             M.MeetingLocation = MVM.MeetingLocation;
-            M.Users = MVM.Users;
             M.GroupTitle = MVM.GroupTitle;
             return M;
         }

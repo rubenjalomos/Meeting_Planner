@@ -72,34 +72,35 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\DBConnector.cs" />
     <Compile Include="Control\DeleteController.cs" />
     <Compile Include="Control\LoginController.cs" />
-    <Compile Include="DBModel\DBConnector.Context.cs">
+    <Compile Include="DBModel\Database.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBConnector.Context.tt</DependentUpon>
+      <DependentUpon>Database.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModel\DBConnector.cs">
+    <Compile Include="DBModel\Database.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBConnector.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
-    <Compile Include="DBModel\DBConnector.Designer.cs">
+    <Compile Include="DBModel\Database.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBConnector.edmx</DependentUpon>
+      <DependentUpon>Database.edmx</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Employee.cs">
-      <DependentUpon>DBConnector.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Manager.cs">
-      <DependentUpon>DBConnector.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\Meeting.cs">
-      <DependentUpon>DBConnector.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="DBModel\User.cs">
-      <DependentUpon>DBConnector.tt</DependentUpon>
+      <DependentUpon>Database.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\EmployeeVM.cs" />
     <Compile Include="Entity\ManagerVM.cs" />
@@ -124,11 +125,11 @@
     <Compile Include="View\EmployeeView.Designer.cs">
       <DependentUpon>EmployeeView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\LoginForm.cs">
+    <Compile Include="View\LoginView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\LoginForm.Designer.cs">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <Compile Include="View\LoginView.Designer.cs">
+      <DependentUpon>LoginView.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,18 +157,18 @@
     <EmbeddedResource Include="View\EmployeeView.resx">
       <DependentUpon>EmployeeView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\LoginForm.resx">
-      <DependentUpon>LoginForm.cs</DependentUpon>
+    <EmbeddedResource Include="View\LoginView.resx">
+      <DependentUpon>LoginView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ManagerView.resx">
       <DependentUpon>ManagerView.cs</DependentUpon>
     </EmbeddedResource>
-    <EntityDeploy Include="DBModel\DBConnector.edmx">
+    <EntityDeploy Include="DBModel\Database.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBConnector.Designer.cs</LastGenOutput>
+      <LastGenOutput>Database.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="DBModel\DBConnector.edmx.diagram">
-      <DependentUpon>DBConnector.edmx</DependentUpon>
+    <None Include="DBModel\Database.edmx.diagram">
+      <DependentUpon>Database.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -201,16 +202,20 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DBModel\DBConnector.Context.tt">
+    <Folder Include="somthing\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DBModel\Database.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBConnector.edmx</DependentUpon>
-      <LastGenOutput>DBConnector.Context.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DBModel\DBConnector.tt">
+    <Content Include="DBModel\Database.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBConnector.edmx</DependentUpon>
-      <LastGenOutput>DBConnector.cs</LastGenOutput>
+      <DependentUpon>Database.edmx</DependentUpon>
+      <LastGenOutput>Database.cs</LastGenOutput>
     </Content>
+    <Content Include="DBscripts\sripts.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

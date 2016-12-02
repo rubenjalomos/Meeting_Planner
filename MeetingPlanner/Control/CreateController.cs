@@ -16,6 +16,7 @@ namespace MeetingPlanner.Control
 {
     public class CreateController
     {
+        DBConnector db = new DBConnector();
         public void OpenCreateMeetingView(Manager MUser)
         {
             CreateMeetingView CreateView = new CreateMeetingView(MUser);
@@ -28,24 +29,17 @@ namespace MeetingPlanner.Control
             CreateView.Show();
         }
 
-        public void CreateMeeting_(Meeting NewMeeting)
-        {
-            using (var db = new DBConnector()) // creates an instance of the database 
-            {
-                if (NewMeeting.Id == null) //User does not create ID
-                {
-                    db.Meetings.Add(NewMeeting); // adds the new meeting to the Meetings table in the database
-                }
-
-                else // just a protection incase for whatever reason the meeting already exists in the database, will not duplicate, will update the existing meeting with new information
-                {
-                    //Guid id = Guid.Parse(NewMeeting.ID); //parses(string -> GUID) so that == operation can be performed next line. 
-                    db.Meetings.First(x => x.Id == NewMeeting.Id);
-                }
-                db.SaveChanges();
-            }
-
+        public void createMeeting(Meeting newMeeting)
+        {            
+            db.InsertMeeting(newMeeting);
         }
+
+        public List<Meeting> fillCalendar(User user)
+        {
+            return db.GetSingleUserCalendar(user);            
+        }
+        
+
 
     }
 }

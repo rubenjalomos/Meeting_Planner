@@ -13,10 +13,10 @@ namespace MeetingPlanner.DBModel
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DBConnector : DbContext
+    public partial class MeetingPlannerDataBaseEntities : DbContext
     {
-        public DBConnector()
-            : base("name=DBConnector")
+        public MeetingPlannerDataBaseEntities()
+            : base("name=MeetingPlannerDataBaseEntities")
         {
         }
     
@@ -25,9 +25,9 @@ namespace MeetingPlanner.DBModel
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Meeting> Meetings { get; set; }
-        public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
+        public virtual DbSet<Meeting> Meetings { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

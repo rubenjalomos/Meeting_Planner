@@ -35,9 +35,7 @@ namespace MeetingPlanner.View
                 User LoggedIn = Login.Login(userName, typedPW);// login to system as user
                 bool isManagerUser = Login.CheckIfManager(LoggedIn);//check if user is manager
                 bool isEmployeeUser = Login.CheckIfEmployee(LoggedIn);//chech if user is employee
-
-
-
+                
                 if (isEmployeeUser == true)
                 {
                     Employee EmployeeLoggedIn = Login.GetEmployee(LoggedIn);
